@@ -1,7 +1,7 @@
  const upper = document.getElementById("upper");
  const lower = document.getElementById("lower");
  const symbol = document.getElementById("symbol");
- const num = document.getElementById("num");
+ const num = document.getElementById("number");
  const len = document.getElementById("len");
  const pw = document.getElementById("pw");
  const copy = document.getElementById("copy");
@@ -22,19 +22,82 @@
 
  function getNumber() {
      return numbers[Math.floor(Math.random() * numbers.length)];
- }z
+ }
 
  function getSymbol() {
      return symbols[Math.floor(Math.random() * symbols.length)];
  }
 
- function generatePassword() {
-    let length = len.value;
+function generatePassword() {
+    const length = len.value;
+
     let password = "";
 
-    for(let i = ; i<){
-        j+=1;
+    if (upper.checked) {
+        password += getUppercase();
     }
-    let random = Math.floor(Math.random() * j);
 
- }
+    if (lower.checked) {
+        password += getLowercase();
+    }
+
+    if (num.checked) {
+        password += getNumber();
+    }
+
+    if (symbol.checked) {
+        password += getSymbol();
+    }
+
+    for (let i = password.length; i < length; i++) {
+        const x = generateChar();
+        password += x;
+    }
+    pw.innerText = password;
+}
+
+function generateChar() {
+    const char = [];
+    if (upper.checked) {
+        char.push(getUppercase());
+    }
+
+    if (lower.checked) {
+        char.push(getLowercase());
+    }
+
+    if (num.checked) {
+        char.push(getNumber());
+    }
+
+    if (symbol.checked) {
+        char.push(getSymbol());
+    }
+
+    if (char.length === 0){
+        return "";
+    }
+
+    console.log(char[0]);
+    console.log(char[1]);
+    console.log(char[2]);
+    return char[Math.floor(Math.random() * char.length)];
+}
+
+generate.addEventListener("click", generatePassword);
+
+copy.addEventListener("click", () => {
+    const textarea = document.createElement("textarea");
+    const password = pw.innerText;
+
+    if (!password) {
+        return;
+    }
+
+    textarea.value = password;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
+    alert("Password copied to clipboard");
+});
