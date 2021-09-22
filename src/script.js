@@ -10,46 +10,26 @@
  const upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
  const lowerLetters = "abcdefghijklmnopqrstuvwxyz";
  const numbers = "0123456789";
- const symbols = "!@#$%^&*()_+=";
+ const symbols = "!@#$%^&*_+=";
 
- function getLowercase() {
+function getLowercase() {
      return lowerLetters[Math.floor(Math.random() * lowerLetters.length)];
- }
-
- function getUppercase() {
+}
+function getUppercase() {
      return upperLetters[Math.floor(Math.random() * upperLetters.length)];
- }
-
- function getNumber() {
+}
+function getNumber() {
      return numbers[Math.floor(Math.random() * numbers.length)];
- }
-
- function getSymbol() {
+}
+function getSymbol() {
      return symbols[Math.floor(Math.random() * symbols.length)];
- }
+}
 
 function generatePassword() {
     const length = len.value;
-
     let password = "";
 
-    if (upper.checked) {
-        password += getUppercase();
-    }
-
-    if (lower.checked) {
-        password += getLowercase();
-    }
-
-    if (num.checked) {
-        password += getNumber();
-    }
-
-    if (symbol.checked) {
-        password += getSymbol();
-    }
-
-    for (let i = password.length; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         const x = generateChar();
         password += x;
     }
@@ -61,26 +41,19 @@ function generateChar() {
     if (upper.checked) {
         char.push(getUppercase());
     }
-
     if (lower.checked) {
         char.push(getLowercase());
     }
-
     if (num.checked) {
         char.push(getNumber());
     }
-
     if (symbol.checked) {
         char.push(getSymbol());
     }
-
     if (char.length === 0){
         return "";
     }
 
-    console.log(char[0]);
-    console.log(char[1]);
-    console.log(char[2]);
     return char[Math.floor(Math.random() * char.length)];
 }
 
